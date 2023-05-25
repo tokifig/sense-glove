@@ -92,15 +92,15 @@ class CMakeBuild(build_ext.build_ext):
 
         if not self.inplace:
             # Copy pybind11 library.
-            for file in (build_dir / "src" / "python").iterdir():
+            basedir = pathlib.Path(__file__).parent.absolute()
+            for file in (basedir / "novapy").iterdir():
                 if re.match(r".*\.(?:so|dylib)\.?", file.name) is not None:
-                    shutil.move(str(file), str(extension_dir))
+                    shutil.copy(str(file), str(extension_dir))
 
             # Copy C++ libraries.
-            libdir = (pathlib.Path(__file__).parent / "lib").absolute()
-            for file in libdir.iterdir():
+            for file in (basedir / "lib").iterdir():
                 if re.match(r".*\.(?:so|dylib)\.?", file.name) is not None:
-                    shutil.move(str(file), str(extension_dir))
+                    shutil.copy(str(file), str(extension_dir))
 
 
 setuptools.setup(
