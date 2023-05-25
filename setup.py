@@ -79,8 +79,8 @@ class CMakeBuild(build_ext.build_ext):
 
         # Build and install.
         make_command = ["cmake", "--build", str(build_dir)]
-        if not self.inplace:
-            make_command += ["--target", "install"]
+        # if not self.inplace:
+        #     make_command += ["--target", "install"]
 
         ncpus = (
             subprocess.check_output(["./ncpu.sh"], cwd="cmake").strip().decode("utf-8")
@@ -97,7 +97,7 @@ class CMakeBuild(build_ext.build_ext):
                     shutil.move(str(file), str(extension_dir))
 
             # Copy C++ libraries.
-            libdir = next(iter(extension_dir.glob("lib*")))
+            libdir = (pathlib.Path(__file__).parent / "lib").absolute()
             for file in libdir.iterdir():
                 if re.match(r".*\.(?:so|dylib)\.?", file.name) is not None:
                     shutil.move(str(file), str(extension_dir))
