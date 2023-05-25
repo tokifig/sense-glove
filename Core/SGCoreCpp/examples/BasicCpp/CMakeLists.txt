@@ -3,6 +3,8 @@
 cmake_minimum_required (VERSION 3.8)
 project ("SGCore_Example" VERSION 1.0.0)
 
+set(CMAKE_CXX_STANDARD 17)
+
 # Our main project will be an executable with the main.cpp in the same folder as this file.
 add_executable(${PROJECT_NAME} main.cpp)
 #Make sure that it is the startup project if we're using VS

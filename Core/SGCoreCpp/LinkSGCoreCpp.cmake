@@ -14,8 +14,10 @@ include_directories("${SGCORE_SOURCE_PATH}/incl")
 #Determine path to binaries based on platform
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	set(SGCORE_BINS "${SGCORE_SOURCE_PATH}/lib/linux")
+	set(SGCORE_LIB "libSGCoreCpp.so")
 ELSE()
 	set(SGCORE_BINS "${SGCORE_SOURCE_PATH}/lib/win")
+	set(SGCORE_LIB "SGCoreCpp.dll")
 ENDIF()
 
 #Find Debug Binary to link for Debug Configuration(s)
@@ -43,5 +45,5 @@ target_link_libraries ( ${PROJECT_NAME}
 add_custom_command(
   TARGET ${PROJECT_NAME}
   POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy "${SGCORE_BINS}/$<CONFIGURATION>/SGCoreCpp.dll" "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
+  COMMAND ${CMAKE_COMMAND} -E copy "${SGCORE_BINS}/$<CONFIGURATION>/${SGCORE_LIB}" "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
 )

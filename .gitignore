@@ -8,3 +8,12 @@ Core/SGConnect/doc*
 
 #bak files made using programs like Notepad++.
 *.bak
+
+*.egg-info
+*.so
+__pycache__
+.cache/
+bin/
+lib/
+build/
+SenseCom/SenseCom/
