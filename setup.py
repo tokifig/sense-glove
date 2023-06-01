@@ -79,8 +79,8 @@ class CMakeBuild(build_ext.build_ext):
 
         # Build and install.
         make_command = ["cmake", "--build", str(build_dir)]
-        if not self.inplace:
-            make_command += ["--target", "install"]
+        # if not self.inplace:
+        #     make_command += ["--target", "install"]
 
         ncpus = (
             subprocess.check_output(["./ncpu.sh"], cwd="cmake").strip().decode("utf-8")

@@ -60,6 +60,9 @@ SensorData Glove::GetSensorData() {
   // Extract only non-zero values from the array.
   const std::vector<SGCore::Kinematics::Vect3D>& sensor_values =
       sensor_data_->sensorValues;
+  if (sensor_values.size() < 4) {
+    throw std::runtime_error("Invalid glove sensor readings.");
+  }
   const SGCore::Kinematics::Quat& orientation = sensor_data_->IMURotation;
   return SensorData{
       {sensor_values[0].y, sensor_values[0].z, sensor_values[1].y,
@@ -103,6 +106,9 @@ SGCore::Haptics::ThumperCmd CreatePalmBuzz(
 void Glove::SendHaptics(const std::optional<std::array<int, 4>>& force,
                         const std::optional<std::array<int, 2>>& buzz,
                         const std::optional<int>& palm_buzz) {
+  if (!glove_) {
+    throw std::runtime_error("Glove not connected.");
+  }
   SGCore::Haptics::SG_FFBCmd force_feedback = CreateForceFeedback(force);
 
   if (!buzz && !palm_buzz) {
